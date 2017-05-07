@@ -78,6 +78,7 @@
                         $scope.users.splice(idx, 1);
                     }
                 });
+                updateLocalStorage();
             }
         }
 
