@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html ng-app="CRM">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.js"></script>
+</head>
+
+<body ng-cloak ng-controller="CRMController">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Mi super CRM</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container searchbar text-right">
+        <div class="container">
+            <label> Nivel de estudios</label>
+            <select ng-model="search.studies">
+            <option value="">-- Filtrar --</option>
+            <option value="{{study}}" ng-repeat="study in studiesOptions">{{study}}</option>
+            </select>
+            <label> Nombre</label>
+            <input class="search-input" ng-model="search.name" type="text" placeholder="Nombre ..." />
+        </div>
+    </div>
+    <main class="container">
+        <div class="row">
+            <div class="col-xs-6 col-sm-4 col-sm-offset-1 crm-content">
+                <div class="list-users">
+                    <div ng-repeat="user in users | filter:search track by user.id" class="user">
+                        <div class="thumbnail">
+                            <img heigth="100" width="100" ng-src="{{user.photo}}" alt="..." />
+                            <div class="caption">
+                                <h3>{{user.name}}</h3>
+                                <b>email:</b><span> {{user.email}}</span>
+                                <p class="text-right options">
+                                    <i href="#" class="fa fa-edit clickable" ng-click="editUser(user)"></i>
+                                    <i href="#" class="fa fa-trash clickable" ng-click="removeUser(user)"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-5 col-sm-offset-2 edit-panel">
+                <form name="editForm" novalidate>
+                    <div class="form-group">
+                        <label>Nombre *</label>
+                        <input ng-required="true" ng-model="newUser.name" name="name" type="text" class="form-control" placeholder="Nombre ..." />
+                        <small ng-show="editForm.name.$touched && !editForm.name.$valid">
+                        No te olvides de introducir un nombre.
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label>URL Foto *</label>
+                        <input ng-required="true" ng-model="newUser.photo" name="photo" type="text" class="form-control" placeholder="URL Foto ..."/>
+                        <small ng-show="editForm.photo.$touched && !editForm.photo.$valid">
+                        Es necesario que indiques una foto
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label>Correo *</label>
+                        <input ng-required="true" ng-model="newUser.email" name="email" type="email" class="form-control" placeholder="Correo ..."
+                        />
+
+                        <small ng-show="editForm.email.$touched && !editForm.email.$valid">
+                        Introduce un email valido
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono *</label>
+                        <input ng-pattern="/^[9|6|7][0-9]{8}$/" ng-required="true" ng-model="newUser.phone" name="phone" type="text" class="form-control"
+                            placeholder="Telefono ..." />
+                        <small ng-show="editForm.phone.$touched && !editForm.phone.$valid">
+                        Introduce un telefono de contacto valido, solo numeros Ex: 928282828
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label>Edad</label>
+                        <input ng-required="true" ng-maxlength="3" ng-model="newUser.age" name="age" type="number" class="form-control" placeholder="Edad ..."
+                        />
+                        <small ng-show="editForm.age.$touched && !editForm.age.$valid">
+                        Introduce una edad valida
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea ng-model="newUser.description" class="form-control" placeholder="Parrafo descriptivo ..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Nivel de estudios *</label>
+                        <select name="studies" ng-model="newUser.studies" ng-required="true">
+                            <option value="" selected>-- Selecciona una opcion --</option>
+                            <option value="{{study}}" ng-repeat="study in studiesOptions">{{study}}</option>
+                        </select>
+                        <small ng-show="editForm.studies.$touched && !editForm.studies.$valid">
+                        Selecciona un nivel de estudios
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label>Otros</label>
+                        <textarea ng-model="newUser.others" class="form-control" placeholder="Parrafo descriptivo ..."></textarea>
+                    </div>
+                    <div class="buttons">
+                        <button ng-click="cancelButton()" class="btn btn-default">Cancelar</button>
+                        <button ng-if="!editing" ng-disabled="!editForm.$valid" ng-click="createNewUser()" class="btn btn-success">Guardar</button>
+                        <button ng-if="editing" ng-disabled="!userCompleted()" ng-click="updateUser(newUser)" class="btn btn-primary">Editar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </main>
+    <script src="js/app.js"></script>
+    <script src="js/controllers/crm.controller.js"></script>
+</body>
+
+</html>

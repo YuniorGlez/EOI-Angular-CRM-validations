@@ -1,0 +1,56 @@
+/* Styles go here */
+
+.navbar{
+  margin: 0;
+}
+
+.searchbar{
+  width: 100%;
+  background-color: aqua;
+  margin: 0;
+  padding-top: 15px;
+  height: 55px;
+}
+
+.searchbar .search-input{
+  margin-right: 20px;
+}
+
+.crm-content{
+  max-height: 80vh;
+  overflow: scroll;
+}
+.user .thumbnail{
+  padding: 20px;
+}
+
+.user .options {
+  font-size:25px;
+  margin-top: 20px;
+  margin-bottom: -20px;
+  position: relative;
+  right: -10px;
+
+}
+
+.edit-panel{
+  /*background-color: blue;*/
+  height: 100%;
+}
+main{
+  padding-top: 30px;
+}
+.clickable{
+  cursor: pointer;
+}
+.edit-panel .ng-invalid.ng-touched{
+  border-color: red;
+}
+.edit-panel .ng-valid.ng-touched{
+  border-color: green;
+}
+.edit-panel small{
+  color: red;
+  margin-top: 5px;
+  margin-left: 5px;
+}
